@@ -5,5 +5,5 @@ QuantData
 .. toctree::
    :maxdepth: 2
 
-   first/contents
-   second/contents
+   code/contents
+   table/contents
