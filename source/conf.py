@@ -15,7 +15,10 @@
 # sys.path.insert(0, os.path.abspath('.'))
 
 from recommonmark.parser import CommonMarkParser
-
+import recommonmark
+from recommonmark.transform import AutoStructify
+import sphinx_rtd_theme
+import sphinx_markdown_tables
 
 source_parsers = {
     '.md': CommonMarkParser,
@@ -25,9 +28,9 @@ source_suffix = ['.rst', '.md']
 # -- Project information -----------------------------------------------------
 
 project = 'SyQuantDocs'
-copyright = '2021, Ricardo'
+copyright = '2021, SyQuant'
 author = 'Ricardo'
-
+version = 'v0.1'
 
 # -- General configuration ---------------------------------------------------
 
