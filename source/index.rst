@@ -3,19 +3,18 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to SyQuantDocs's documentation!
-=======================================
+SyQuant 思源量化出品
+====================
+
 项目gitee地址为: https://gitee.com/ricardoozz/sy-quant
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :glob:
+   :caption: Table of contents:
 
+   syquant
+   quant_data/index
+   sybacktest
+   sydata
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

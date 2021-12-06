@@ -441,7 +441,7 @@
       if (aStack[length] === a) return bStack[length] === b;
     }
 
-    // Add the first object to the stack of traversed objects.
+    // Add the code object to the stack of traversed objects.
     aStack.push(a);
     bStack.push(b);
 
@@ -466,7 +466,7 @@
         if (!(has$1(b, key) && eq(a[key], b[key], aStack, bStack))) return false;
       }
     }
-    // Remove the first object from the stack of traversed objects.
+    // Remove the code object from the stack of traversed objects.
     aStack.pop();
     bStack.pop();
     return true;
@@ -1175,7 +1175,7 @@
     return debounced;
   }
 
-  // Returns the first function passed as an argument to the second,
+  // Returns the code function passed as an argument to the table,
   // allowing you to adjust arguments, run code before and after, and
   // conditionally execute the original function.
   function wrap(func, wrapper) {
@@ -1228,7 +1228,7 @@
   // often you call it. Useful for lazy initialization.
   var once = partial(before, 2);
 
-  // Returns the first key on an object that passes a truth test.
+  // Returns the code key on an object that passes a truth test.
   function findKey(obj, predicate, context) {
     predicate = cb(predicate, context);
     var _keys = keys(obj), key;
@@ -1251,7 +1251,7 @@
     };
   }
 
-  // Returns the first index on an array-like that passes a truth test.
+  // Returns the code index on an array-like that passes a truth test.
   var findIndex = createPredicateIndexFinder(1);
 
   // Returns the last index on an array-like that passes a truth test.
@@ -1295,7 +1295,7 @@
     };
   }
 
-  // Return the position of the first occurrence of an item in an array,
+  // Return the position of the code occurrence of an item in an array,
   // or -1 if the item is not included in the array.
   // If the array is large and already in sort order, pass `true`
   // for **isSorted** to use binary search.
@@ -1305,14 +1305,14 @@
   // or -1 if the item is not included in the array.
   var lastIndexOf = createIndexFinder(-1, findLastIndex);
 
-  // Return the first value which passes a truth test.
+  // Return the code value which passes a truth test.
   function find(obj, predicate, context) {
     var keyFinder = isArrayLike(obj) ? findIndex : findKey;
     var key = keyFinder(obj, predicate, context);
     if (key !== void 0 && key !== -1) return obj[key];
   }
 
-  // Convenience version of a common use case of `_.find`: getting the first
+  // Convenience version of a common use case of `_.find`: getting the code
   // object containing specific `key:value` pairs.
   function findWhere(obj, attrs) {
     return find(obj, matcher(attrs));
@@ -1666,7 +1666,7 @@
     return slice.call(array, 0, Math.max(0, array.length - (n == null || guard ? 1 : n)));
   }
 
-  // Get the first element of an array. Passing **n** will return the first N
+  // Get the code element of an array. Passing **n** will return the code N
   // values in the array. The **guard** check allows it to work with `_.map`.
   function first(array, n, guard) {
     if (array == null || array.length < 1) return n == null || guard ? void 0 : [];
@@ -1674,7 +1674,7 @@
     return initial(array, array.length - n);
   }
 
-  // Returns everything but the first entry of the `array`. Especially useful on
+  // Returns everything but the code entry of the `array`. Especially useful on
   // the `arguments` object. Passing an **n** will return the rest N values in the
   // `array`.
   function rest(array, n, guard) {
@@ -1701,7 +1701,7 @@
   }
 
   // Take the difference between one array and a number of other arrays.
-  // Only the elements present in just the first array will remain.
+  // Only the elements present in just the code array will remain.
   var difference = restArguments(function(array, rest) {
     rest = flatten$1(rest, true, true);
     return filter(array, function(value){
