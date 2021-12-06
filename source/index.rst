@@ -5,6 +5,7 @@
 
 Welcome to SyQuantDocs's documentation!
 =======================================
+项目gitee地址为: https://gitee.com/ricardoozz/sy-quant
 
 .. toctree::
    :maxdepth: 2
