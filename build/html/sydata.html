@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SyData 数据API接口 &mdash; SyQuantDocs  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="prev" title="SyBacktest 回测引擎" href="sybacktest.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SyQuantDocs
+          </a>
+              <div class="version">
+                v0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="syquant.html">SyQuant 介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quant_data/index.html">QuantData 存储数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sybacktest.html">SyBacktest 回测引擎</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SyData 数据API接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">市场概览</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">获取交易日历</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">获取全部股票或指数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">股票相关数据</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">获取股票量价数据</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">获取股票分钟级数据</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">指数相关数据</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id8">获取指数量价数据</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">获取指数成分股及其权重</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SyQuantDocs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>SyData 数据API接口</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/sydata.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sydata-api">
+<h1>SyData 数据API接口<a class="headerlink" href="#sydata-api" title="永久链接至标题"></a></h1>
+<section id="id1">
+<h2>市场概览<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
+<section id="id2">
+<h3>获取交易日历<a class="headerlink" href="#id2" title="永久链接至标题"></a></h3>
+<p>接口：</p>
+<p><code class="docutils literal notranslate"><span class="pre">get_trade_days(start=None,</span> <span class="pre">end=None,</span> <span class="pre">is_open=True,</span> <span class="pre">engine=engine1)</span></code></p>
+<p>输入参数:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>start 开始时间，可缺省
+    格式: str
+    说明：形如&#39;2020-01-01&#39;格式，数据包括开始时间。默认为可取到的最早日期
+end 结束时间，可缺省
+    格式: str
+    说明：形如&#39;2020-01-01&#39;格式，数据包括结束时间。默认为最新日期
+is_open 是否为交易日
+    格式: Bool
+    说明：True为交易日，False为全部日历。默认为True
+</pre></div>
+</div>
+<p>示例：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">syquant.sydata.data_msql</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">get_trade_days</span><span class="p">(</span><span class="s1">&#39;2021-01-08&#39;</span><span class="p">,</span> <span class="s1">&#39;2021-01-12&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>输出：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;2021-01-08&#39;</span><span class="p">,</span> <span class="s1">&#39;2021-01-11&#39;</span><span class="p">,</span> <span class="s1">&#39;2021-01-12&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>获取全部股票或指数<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">get_all_securities(types=&quot;stock&quot;,</span> <span class="pre">date=None,</span> <span class="pre">info=False,</span> <span class="pre">engine=engine1)</span></code>
+输入参数:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>types 标的类型
+    格式：str
+    说明：支持股票&#39;stock&#39;，指数&#39;index&#39;
+date 日期
+    格式: str
+    说明：形如&#39;2020-01-01&#39;格式，仅能获取该日期的上市股票。默认为获取全部股票
+info 详细信息
+    格式：Bool
+    说明：True为展示详细信息，False为仅展示标的代码，默认为False
+</pre></div>
+</div>
+<p>示例：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">syquant.sydata.data_msql</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">get_all_securities</span><span class="p">(</span><span class="s1">&#39;stock&#39;</span><span class="p">,</span><span class="n">date</span><span class="o">=</span><span class="s1">&#39;2021-12-01&#39;</span><span class="p">,</span><span class="n">info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>输出：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>             <span class="n">code</span> <span class="n">display_name</span>  <span class="n">name</span>  <span class="n">start_date</span>    <span class="n">end_date</span>   <span class="nb">type</span>
+<span class="mi">0</span>     <span class="mf">000001.</span><span class="n">XSHE</span>         <span class="n">平安银行</span>  <span class="n">PAYH</span>  <span class="mi">1991</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">03</span>  <span class="mi">2200</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span>  <span class="n">stock</span>
+<span class="mi">1</span>     <span class="mf">000002.</span><span class="n">XSHE</span>          <span class="n">万科A</span>   <span class="n">WKA</span>  <span class="mi">1991</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">29</span>  <span class="mi">2200</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span>  <span class="n">stock</span>
+<span class="mi">2</span>     <span class="mf">000004.</span><span class="n">XSHE</span>         <span class="n">国华网安</span>  <span class="n">GHWA</span>  <span class="mi">1990</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">01</span>  <span class="mi">2200</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span>  <span class="n">stock</span>
+<span class="mi">3</span>     <span class="mf">000005.</span><span class="n">XSHE</span>         <span class="n">ST星源</span>  <span class="n">STXY</span>  <span class="mi">1990</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">10</span>  <span class="mi">2200</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span>  <span class="n">stock</span>
+<span class="mi">4</span>     <span class="mf">000006.</span><span class="n">XSHE</span>         <span class="n">深振业A</span>  <span class="n">SZYA</span>  <span class="mi">1992</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">27</span>  <span class="mi">2200</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span>  <span class="n">stock</span>
+<span class="o">...</span>           <span class="o">...</span>          <span class="o">...</span>   <span class="o">...</span>         <span class="o">...</span>         <span class="o">...</span>    <span class="o">...</span>
+<span class="mi">4555</span>  <span class="mf">688799.</span><span class="n">XSHG</span>         <span class="n">华纳药厂</span>  <span class="n">HNYC</span>  <span class="mi">2021</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">13</span>  <span class="mi">2200</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span>  <span class="n">stock</span>
+<span class="mi">4556</span>  <span class="mf">688800.</span><span class="n">XSHG</span>          <span class="n">瑞可达</span>   <span class="n">RKD</span>  <span class="mi">2021</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">22</span>  <span class="mi">2200</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span>  <span class="n">stock</span>
+<span class="mi">4557</span>  <span class="mf">688819.</span><span class="n">XSHG</span>         <span class="n">天能股份</span>  <span class="n">TNGF</span>  <span class="mi">2021</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">18</span>  <span class="mi">2200</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span>  <span class="n">stock</span>
+<span class="mi">4558</span>  <span class="mf">688981.</span><span class="n">XSHG</span>         <span class="n">中芯国际</span>  <span class="n">ZXGJ</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">16</span>  <span class="mi">2200</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span>  <span class="n">stock</span>
+<span class="mi">4559</span>  <span class="mf">689009.</span><span class="n">XSHG</span>         <span class="n">九号公司</span>  <span class="n">JHGS</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">29</span>  <span class="mi">2200</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span>  <span class="n">stock</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id4">
+<h2>股票相关数据<a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<section id="id5">
+<h3>获取股票量价数据<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<p>接口：</p>
+<p><code class="docutils literal notranslate"><span class="pre">get_price(instrument,</span> <span class="pre">start,</span> <span class="pre">end,</span> <span class="pre">frequency='1d',</span> <span class="pre">fq=None,</span> <span class="pre">fields=None,</span> <span class="pre">engine=engine1)</span></code></p>
+<p>输入参数:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>instrument 标的代码
+    格式：str, list
+    说明：支持单个标的或多个标的
+start 开始时间
+    格式: str
+    说明：形如&#39;2020-01-01&#39;格式，数据包括开始时间
+end 结束时间
+    格式: str
+    说明：形如&#39;2020-01-01&#39;格式，数据包括结束时间
+frequency 周期
+    格式：str
+    说明：目前仅支持&#39;1d&#39;，即以1天为周期
+fq 复权
+    格式：str
+    说明：价格复权情况，&#39;bfq&#39;不复权，&#39;hqf&#39;后复权，&#39;qfq&#39;前复权，默认为不复权
+fileds 数据字段
+    格式：list
+    说明：形如[&#39;open&#39;,&#39;close&#39;,&#39;high&#39;,&#39;low&#39;,&#39;volume&#39;]，支持如下字段：
+          open        开盘价
+          close       收盘价
+          low         最低价
+          high        最高价
+          volume      成交量
+          money       成交额
+          factor      复权因子
+          high_limit  涨停价
+          low_limit   跌停价
+          vwa         成交量加权均价
+          pre_close   昨日收盘价
+          paused      是否停牌
+          is_st       是否st,*st和退市整理期标的
+</pre></div>
+</div>
+<p>示例：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">syquant.sydata.data_msql</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">get_price</span><span class="p">(</span><span class="s1">&#39;000001.XSHE&#39;</span><span class="p">,</span> <span class="s1">&#39;2021-11-02&#39;</span><span class="p">,</span> <span class="s1">&#39;2021-11-05&#39;</span><span class="p">,</span> <span class="n">fq</span><span class="o">=</span><span class="s1">&#39;hfq&#39;</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;open&#39;</span><span class="p">,</span><span class="s1">&#39;close&#39;</span><span class="p">,</span><span class="s1">&#39;high&#39;</span><span class="p">,</span><span class="s1">&#39;low&#39;</span><span class="p">,</span><span class="s1">&#39;volume&#39;</span><span class="p">,</span><span class="s1">&#39;factor&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>输出：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>          <span class="n">code</span>        <span class="n">date</span>     <span class="nb">open</span>    <span class="n">close</span>     <span class="n">volume</span>   <span class="n">factor</span>
+<span class="mi">0</span>  <span class="mf">000001.</span><span class="n">XSHE</span>  <span class="mi">2021</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">02</span>  <span class="mf">2357.70</span>  <span class="mf">2212.85</span>  <span class="mf">1641230.0</span>  <span class="mf">121.719</span>
+<span class="mi">1</span>  <span class="mf">000001.</span><span class="n">XSHE</span>  <span class="mi">2021</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">03</span>  <span class="mf">2203.12</span>  <span class="mf">2194.60</span>   <span class="mf">916020.0</span>  <span class="mf">121.719</span>
+<span class="mi">2</span>  <span class="mf">000001.</span><span class="n">XSHE</span>  <span class="mi">2021</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">04</span>  <span class="mf">2200.68</span>  <span class="mf">2175.12</span>   <span class="mf">807935.0</span>  <span class="mf">121.719</span>
+<span class="mi">3</span>  <span class="mf">000001.</span><span class="n">XSHE</span>  <span class="mi">2021</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">05</span>  <span class="mf">2172.69</span>  <span class="mf">2147.13</span>   <span class="mf">900466.0</span>  <span class="mf">121.719</span>
+</pre></div>
+</div>
+<p>关于股票数据复权</p>
+<p>由于股票存在配股、分拆、合并和发放股息等事件，会导致股价出现较大的缺口。 若使用不复权的价格处理数据、计算各种指标，将会导致它们失去连续性，且使用不复权价格计算收益也会出现错误。 为了保证数据连贯性，常通过前复权和后复权对价格序列进行调整。</p>
+<ul class="simple">
+<li><p>前复权：保持当前价格不变，将历史价格进行增减，从而使股价连续。 前复权用来看盘非常方便，能一眼看出股价的历史走势，叠加各种技术指标也比较顺畅，是各种行情软件默认的复权方式。 这种方法虽然很常见，但也有两个缺陷需要注意。</p>
+<ul>
+<li><p>为了保证当前价格不变，每次股票除权除息，均需要重新调整历史价格，因此其历史价格是时变的。 这会导致在不同时点看到的历史前复权价可能出现差异。</p></li>
+<li><p>对于有持续分红的公司来说，前复权价可能出现负值。</p></li>
+</ul>
+</li>
+<li><p>后复权：保证历史价格不变，在每次股票权益事件发生后，调整当前的股票价格。 后复权价格和真实股票价格可能差别较大，不适合用来看盘。 其优点在于，可以被看作投资者的长期财富增长曲线，反映投资者的真实收益率情况。</p></li>
+</ul>
+<p>在量化投资研究中普遍采用后复权数据。</p>
+</section>
+<section id="id6">
+<h3>获取股票分钟级数据<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<p>接口：</p>
+<p><code class="docutils literal notranslate"><span class="pre">get_minute_price(stock,</span> <span class="pre">start_date=None,</span> <span class="pre">end_date=None,</span> <span class="pre">fq='bfq',</span> <span class="pre">engine=engine1)</span></code></p>
+<p>输入参数:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>stock 股票名
+    格式：str。例如：&#39;000001.XSHE&#39;
+    说明：仅支持单个标
+start_date 开始时间
+    格式：str。例如：&#39;2021-01-04&#39;, &#39;2021-01-04 23:59:59&#39;
+    说明：开始时间，若仅有日期则表示当天0点。如&#39;2021-01-04&#39; = &#39;2021-01-04 00:00:00&#39;
+end_date 结束时间
+    格式：str。例如：&#39;2021-01-04&#39;, &#39;2021-01-04 23:59:59&#39;
+    说明：结束时间，若仅有日期则表示当天0点。如&#39;2021-01-04&#39; = &#39;2021-01-04 00:00:00&#39;
+fq 复权
+    格式：str
+    说明：价格复权情况，&#39;bfq&#39;不复权，&#39;hqf&#39;后复权，&#39;qfq&#39;前复权，默认为不复权
+</pre></div>
+</div>
+<p>示例：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">syquant.sydata.data_msql</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">get_minute_data</span><span class="p">(</span><span class="s1">&#39;000001.XSHE&#39;</span><span class="p">,</span> <span class="s1">&#39;2021-11-01 10:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;2021-11-01 14:50:00&#39;</span><span class="p">,</span> <span class="n">fq</span><span class="o">=</span><span class="s1">&#39;bfq&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>输出：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                   <span class="n">time</span>   <span class="nb">open</span>  <span class="n">close</span>   <span class="n">high</span>    <span class="n">low</span>    <span class="n">volume</span>       <span class="n">money</span>
+<span class="mi">0</span>   <span class="mi">2021</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">01</span> <span class="mi">10</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">19.25</span>  <span class="mf">19.28</span>  <span class="mf">19.28</span>  <span class="mf">19.24</span>  <span class="mf">137500.0</span>   <span class="mf">2649540.0</span>
+<span class="mi">1</span>   <span class="mi">2021</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">01</span> <span class="mi">10</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">19.28</span>  <span class="mf">19.28</span>  <span class="mf">19.30</span>  <span class="mf">19.26</span>  <span class="mf">378800.0</span>   <span class="mf">7306270.0</span>
+<span class="mi">2</span>   <span class="mi">2021</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">01</span> <span class="mi">10</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">19.31</span>  <span class="mf">19.32</span>  <span class="mf">19.36</span>  <span class="mf">19.30</span>  <span class="mf">738900.0</span>  <span class="mf">14283400.0</span>
+<span class="mi">3</span>   <span class="mi">2021</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">01</span> <span class="mi">10</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">19.31</span>  <span class="mf">19.27</span>  <span class="mf">19.34</span>  <span class="mf">19.27</span>  <span class="mf">712500.0</span>  <span class="mf">13757100.0</span>
+<span class="mi">4</span>   <span class="mi">2021</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">01</span> <span class="mi">10</span><span class="p">:</span><span class="mi">04</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">19.30</span>  <span class="mf">19.31</span>  <span class="mf">19.34</span>  <span class="mf">19.26</span>  <span class="mf">452400.0</span>   <span class="mf">8732030.0</span>
+<span class="o">..</span>                  <span class="o">...</span>    <span class="o">...</span>    <span class="o">...</span>    <span class="o">...</span>    <span class="o">...</span>       <span class="o">...</span>         <span class="o">...</span>
+<span class="mi">196</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">01</span> <span class="mi">14</span><span class="p">:</span><span class="mi">46</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">19.41</span>  <span class="mf">19.41</span>  <span class="mf">19.43</span>  <span class="mf">19.40</span>  <span class="mf">299200.0</span>   <span class="mf">5809260.0</span>
+<span class="mi">197</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">01</span> <span class="mi">14</span><span class="p">:</span><span class="mi">47</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">19.41</span>  <span class="mf">19.40</span>  <span class="mf">19.42</span>  <span class="mf">19.40</span>  <span class="mf">282400.0</span>   <span class="mf">5483530.0</span>
+<span class="mi">198</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">01</span> <span class="mi">14</span><span class="p">:</span><span class="mi">48</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">19.41</span>  <span class="mf">19.41</span>  <span class="mf">19.42</span>  <span class="mf">19.40</span>  <span class="mf">243800.0</span>   <span class="mf">4735110.0</span>
+<span class="mi">199</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">01</span> <span class="mi">14</span><span class="p">:</span><span class="mi">49</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">19.42</span>  <span class="mf">19.42</span>  <span class="mf">19.44</span>  <span class="mf">19.41</span>  <span class="mf">193900.0</span>   <span class="mf">3766810.0</span>
+<span class="mi">200</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">01</span> <span class="mi">14</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">19.43</span>  <span class="mf">19.42</span>  <span class="mf">19.43</span>  <span class="mf">19.42</span>  <span class="mf">203200.0</span>   <span class="mf">3947730.0</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id7">
+<h2>指数相关数据<a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
+<section id="id8">
+<h3>获取指数量价数据<a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
+<p>接口：</p>
+<p><code class="docutils literal notranslate"><span class="pre">get_index_price(instrument,</span> <span class="pre">start,</span> <span class="pre">end,</span> <span class="pre">frequency='1d',</span> <span class="pre">fields=None,</span> <span class="pre">engine=engine1)</span></code></p>
+<p>输入参数:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>instrument 标的代码
+    格式：str, list
+    说明：支持单个标的或多个标的
+start 开始时间
+    格式: str
+    说明：形如&#39;2020-01-01&#39;格式，数据包括开始时间
+end 结束时间
+    格式: str
+    说明：形如&#39;2020-01-01&#39;格式，数据包括结束时间
+frequency 周期
+    格式：str
+    说明：目前仅支持&#39;1d&#39;，即以1天为周期
+fileds 数据字段
+    格式：list
+    说明：形如[&#39;open&#39;,&#39;close&#39;,&#39;high&#39;,&#39;low&#39;,&#39;volume&#39;]，支持如下字段：
+          open        开盘价
+          close       收盘价
+          low         最低价
+          high        最高价
+          volume      成交量
+          money       成交额
+          vwap        成交量加权均价
+          pre_close   昨日收盘价
+</pre></div>
+</div>
+<p>示例：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">syquant.sydata.data_msql</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">get_index_price</span><span class="p">(</span><span class="s1">&#39;000300.XSHG&#39;</span><span class="p">,</span> <span class="s1">&#39;2021-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2021-11-01&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>输出：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">code</span>        <span class="n">date</span>     <span class="nb">open</span>    <span class="n">close</span>     <span class="n">high</span>      <span class="n">low</span>        <span class="n">volume</span>
+<span class="mi">0</span>    <span class="mf">000300.</span><span class="n">XSHG</span>  <span class="mi">2021</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">04</span>  <span class="mf">5212.93</span>  <span class="mf">5267.72</span>  <span class="mf">5284.43</span>  <span class="mf">5190.94</span>  <span class="mf">2.117110e+10</span>
+<span class="mi">1</span>    <span class="mf">000300.</span><span class="n">XSHG</span>  <span class="mi">2021</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">05</span>  <span class="mf">5245.84</span>  <span class="mf">5368.50</span>  <span class="mf">5368.50</span>  <span class="mf">5234.38</span>  <span class="mf">2.249310e+10</span>
+<span class="mi">2</span>    <span class="mf">000300.</span><span class="n">XSHG</span>  <span class="mi">2021</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">06</span>  <span class="mf">5386.51</span>  <span class="mf">5417.67</span>  <span class="mf">5433.47</span>  <span class="mf">5341.43</span>  <span class="mf">1.937730e+10</span>
+<span class="mi">3</span>    <span class="mf">000300.</span><span class="n">XSHG</span>  <span class="mi">2021</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">07</span>  <span class="mf">5428.39</span>  <span class="mf">5513.66</span>  <span class="mf">5513.66</span>  <span class="mf">5413.35</span>  <span class="mf">2.198720e+10</span>
+<span class="mi">4</span>    <span class="mf">000300.</span><span class="n">XSHG</span>  <span class="mi">2021</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">08</span>  <span class="mf">5526.29</span>  <span class="mf">5495.43</span>  <span class="mf">5547.47</span>  <span class="mf">5442.69</span>  <span class="mf">2.043250e+10</span>
+<span class="o">..</span>           <span class="o">...</span>         <span class="o">...</span>      <span class="o">...</span>      <span class="o">...</span>      <span class="o">...</span>      <span class="o">...</span>           <span class="o">...</span>
+<span class="mi">194</span>  <span class="mf">000300.</span><span class="n">XSHG</span>  <span class="mi">2021</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">26</span>  <span class="mf">4983.24</span>  <span class="mf">4963.10</span>  <span class="mf">5002.57</span>  <span class="mf">4953.48</span>  <span class="mf">1.408890e+10</span>
+<span class="mi">195</span>  <span class="mf">000300.</span><span class="n">XSHG</span>  <span class="mi">2021</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">27</span>  <span class="mf">4949.23</span>  <span class="mf">4898.16</span>  <span class="mf">4949.23</span>  <span class="mf">4884.94</span>  <span class="mf">1.471120e+10</span>
+<span class="mi">196</span>  <span class="mf">000300.</span><span class="n">XSHG</span>  <span class="mi">2021</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">28</span>  <span class="mf">4882.59</span>  <span class="mf">4864.14</span>  <span class="mf">4898.66</span>  <span class="mf">4846.28</span>  <span class="mf">1.566490e+10</span>
+<span class="mi">197</span>  <span class="mf">000300.</span><span class="n">XSHG</span>  <span class="mi">2021</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">29</span>  <span class="mf">4861.27</span>  <span class="mf">4908.77</span>  <span class="mf">4908.77</span>  <span class="mf">4855.76</span>  <span class="mf">1.598870e+10</span>
+<span class="mi">198</span>  <span class="mf">000300.</span><span class="n">XSHG</span>  <span class="mi">2021</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">4878.13</span>  <span class="mf">4890.69</span>  <span class="mf">4908.21</span>  <span class="mf">4858.25</span>  <span class="mf">1.715840e+10</span>
+</pre></div>
+</div>
+</section>
+<section id="id9">
+<h3>获取指数成分股及其权重<a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
+<p>接口：</p>
+<p><code class="docutils literal notranslate"><span class="pre">get_index_stocks(code,</span> <span class="pre">date=None,</span> <span class="pre">engine=engine1)</span></code></p>
+<p>输入参数:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>code 指数代码（目前仅支持聚宽指数格式）
+    格式: str
+    说明：形如&#39;000906.XSHG&#39;格式
+date 日期
+    格式: str
+    说明：形如&#39;2020-01-01&#39;格式，得到该日期之前可得到的成分股数据，不会有未来函数，默认为最新日期
+</pre></div>
+</div>
+<p>示例：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">syquant.sydata.data_msql</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">get_index_stocks</span><span class="p">(</span><span class="s1">&#39;000300.XSHG&#39;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s1">&#39;2021-01-01&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>输出：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>      <span class="n">index_code</span>        <span class="n">date</span>   <span class="n">stock_code</span>  <span class="n">weight</span>
+<span class="mi">0</span>    <span class="mf">000300.</span><span class="n">XSHG</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span>  <span class="mf">000001.</span><span class="n">XSHE</span>   <span class="mf">0.957</span>
+<span class="mi">1</span>    <span class="mf">000300.</span><span class="n">XSHG</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span>  <span class="mf">000002.</span><span class="n">XSHE</span>   <span class="mf">0.996</span>
+<span class="mi">2</span>    <span class="mf">000300.</span><span class="n">XSHG</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span>  <span class="mf">000063.</span><span class="n">XSHE</span>   <span class="mf">0.463</span>
+<span class="mi">3</span>    <span class="mf">000300.</span><span class="n">XSHG</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span>  <span class="mf">000066.</span><span class="n">XSHE</span>   <span class="mf">0.170</span>
+<span class="mi">4</span>    <span class="mf">000300.</span><span class="n">XSHG</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span>  <span class="mf">000069.</span><span class="n">XSHE</span>   <span class="mf">0.148</span>
+<span class="o">..</span>           <span class="o">...</span>         <span class="o">...</span>          <span class="o">...</span>     <span class="o">...</span>
+<span class="mi">295</span>  <span class="mf">000300.</span><span class="n">XSHG</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span>  <span class="mf">603993.</span><span class="n">XSHG</span>   <span class="mf">0.225</span>
+<span class="mi">296</span>  <span class="mf">000300.</span><span class="n">XSHG</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span>  <span class="mf">688008.</span><span class="n">XSHG</span>   <span class="mf">0.191</span>
+<span class="mi">297</span>  <span class="mf">000300.</span><span class="n">XSHG</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span>  <span class="mf">688009.</span><span class="n">XSHG</span>   <span class="mf">0.077</span>
+<span class="mi">298</span>  <span class="mf">000300.</span><span class="n">XSHG</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span>  <span class="mf">688012.</span><span class="n">XSHG</span>   <span class="mf">0.172</span>
+<span class="mi">299</span>  <span class="mf">000300.</span><span class="n">XSHG</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span>  <span class="mf">688036.</span><span class="n">XSHG</span>   <span class="mf">0.124</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sybacktest.html" class="btn btn-neutral float-left" title="SyBacktest 回测引擎" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, SyQuant.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
